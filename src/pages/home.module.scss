@@ -1,1 +1,84 @@
 // TODO
+.contentContainer { 
+    margin-top: 4rem;
+    padding: 0 23.124rem 0 23.124rem;
+
+    button {
+        margin-top: 4rem;
+
+        color: var(--pink-500);
+        font-size: 1.125rem;
+        font-weight: 600;
+
+        background-color: transparent;
+        border: none;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    a {
+        margin-bottom: 3rem;
+        line-height: normal;
+        letter-spacing: -0.5px;
+
+       
+
+        &:hover strong {
+            color: var(--pink-500);
+            opacity: 0.9;
+        }
+        
+        &:hover strong,p { 
+            cursor: pointer;
+        }
+    }
+    
+    a:last-child {
+        margin-bottom: 0;
+    }
+
+
+    strong { 
+        color: var(--heading);
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    p { 
+        font-size: 1.125rem;
+    }
+
+    div { 
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        margin-top: 1.5rem;
+        color: var(--info);
+
+        span {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+
+            svg {
+                width: 1.25rem;
+                height: 1.25rem;
+                margin-right: 0.5rem;
+            }
+       
+            &:first-child {
+                margin-right: 1.5rem;
+            }
+        }
+    } 
+}
+

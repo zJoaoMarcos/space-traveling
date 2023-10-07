@@ -1,6 +1,6 @@
 import * as prismic from '@prismicio/client';
 import { enableAutoPreviews } from '@prismicio/next';
-import { NextApiRequestLike } from '@prismicio/next/dist/types';
+import { NextApiRequestLike } from '@prismicio/next/dist/index';
 
 export interface PrismicConfig {
   req?: NextApiRequestLike;
