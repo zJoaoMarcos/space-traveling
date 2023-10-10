@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import React from 'react';
 import Link from 'next/link';
+import { Header } from '../components/Header';
 
 interface Post {
   uid?: string;
@@ -38,6 +39,15 @@ export default function Home({ postsPagination }: HomeProps) {
     next_page
   );
 
+  function formatDate(date: string) {
+    const newDate = new Date(date);
+    const formattedDate = format(newDate, 'dd MMM y', {
+      locale: ptBR,
+    });
+
+    return formattedDate;
+  }
+
   async function fetchMoreArticles(url: string) {
     const response = await fetch(url);
     const data = await response.json();
@@ -48,14 +58,8 @@ export default function Home({ postsPagination }: HomeProps) {
 
     results?.forEach(post => {
       const nextPost = {
-        uuid: post.id,
-        first_publication_date: format(
-          new Date(post.first_publication_date),
-          'dd MMM y',
-          {
-            locale: ptBR,
-          }
-        ),
+        uid: post.uid,
+        first_publication_date: post.first_publication_date,
         data: {
           title: post.data.title,
           subtitle: post.data.subtitle,
@@ -70,23 +74,28 @@ export default function Home({ postsPagination }: HomeProps) {
   return (
     <>
       <Head>
-        <title>space traveling</title>
+        <title>Home | Space Traveling</title>
       </Head>
 
+      <Header />
       <main className={styles.contentContainer}>
         <div className={styles.posts}>
           {posts.map(post => (
-            <Link key={post.uid} href="">
+            <Link
+              key={post.uid}
+              href={{ pathname: `/post/${post.uid}` }}
+              passHref
+            >
               <a>
-                <strong>{post.data.title}</strong>
-                <p>{post.data.subtitle}</p>
+                <strong>{post?.data?.title}</strong>
+                <p>{post?.data?.subtitle}</p>
 
-                <div>
+                <div className={commonStyles?.postInfo}>
                   <span>
-                    <FiCalendar /> {post.first_publication_date}
+                    <FiCalendar /> {formatDate(post?.first_publication_date)}
                   </span>
                   <span>
-                    <FiUser /> {post.data.author}
+                    <FiUser /> {post?.data.author}
                   </span>
                 </div>
               </a>
@@ -111,16 +120,12 @@ export const getStaticProps: GetStaticProps = async ctx => {
     pageSize: 1,
   });
 
-  const results = postsResponse.results.map(post => {
+  const { results, next_page } = postsResponse;
+
+  const posts: Post[] = results.map(post => {
     return {
-      uuid: post.id,
-      first_publication_date: format(
-        new Date(post.first_publication_date),
-        'dd MMM y',
-        {
-          locale: ptBR,
-        }
-      ),
+      uid: post.uid,
+      first_publication_date: post.first_publication_date,
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
@@ -129,9 +134,7 @@ export const getStaticProps: GetStaticProps = async ctx => {
     };
   });
 
-  const next_page = postsResponse.next_page;
-
   return {
-    props: { postsPagination: { results, next_page } },
+    props: { postsPagination: { results: posts, next_page } },
   };
 };

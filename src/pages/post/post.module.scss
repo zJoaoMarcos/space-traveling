@@ -1,1 +1,101 @@
-// TODO
+
+.bannerPost { 
+    width: 100vw;
+    height: 25rem;
+    object-fit: cover;
+
+    margin-top: 3rem;
+    margin-bottom: 5rem;
+}
+
+.postContainer { 
+    padding: 0 23.124rem;
+    text-align: justify;
+    overflow-x: hidden;
+    margin-bottom: 5rem;
+    
+    h1 { 
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: -0.5px;
+        color: var(--heading);
+    }
+
+    h5 {
+        margin-top: 4.125rem;
+        font-size: 2.25rem;
+        font-weight: 700;
+        line-height: 140%;
+        color: var(--heading);
+    }
+    
+    p {
+        margin-top: 2.25rem;
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 140%;
+        color: var(--body);
+    }
+}
+
+.fallbackContainer {
+    padding: 0 23.124rem;
+
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p { 
+        font-size: 2rem;
+        animation: loading infinite;
+        animation-duration: 2s;
+    }
+
+    span { 
+        animation: dotsLoading infinite;
+        animation-duration: 1s;
+    }
+
+    span:nth-child(1) { 
+        animation-delay: .1s;
+    }
+    
+    span:nth-child(2) { 
+        animation-delay: .2s;
+    }
+    
+    span:nth-child(1) { 
+        animation-delay: .3s;
+    }
+}
+
+@keyframes loading { 
+    0% {
+        opacity: 0.4;
+    }
+    25% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes dotsLoading {
+    0% { 
+        transform: scale(0.5);   
+        color: var(--pink-500);
+        opacity: 0.2;
+    }
+    
+    25% {
+        transform: scale(0.8);
+    }
+    
+    50% {
+        transform: scale(1);
+    }
+}
